@@ -57,12 +57,3 @@ UPPER_CASE_LETTERS = [
   'Y',
   'Z'
 ]
-
-# Operadores permitidos
-OPERATORS = [
-  '^',
-  '*',
-  '/',
-  '+',
-  '-'
-]

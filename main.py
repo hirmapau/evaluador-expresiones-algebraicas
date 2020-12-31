@@ -2,37 +2,34 @@
   Archivo principal para el menú e interactuar con los otros paquetes
 '''
 
-# Imprime el menú y le pide información al usuario
-def print_menu():
-  print('''
-    ¿Qué quieres hacer?
+# Importar dependencias
+from operators import OPERATORS
+from prefix import infix_to_prefix
+from evaluator import identify_variables, ask_for_variables
 
-    (1) Evaluar una expresión algebráica
-    (2) Traducir expresión a prefijo
-    (3) Traducir expresión a posfijo
-    (4) Salir
-  ''')
+# Pide un polinomio al usuario y limpia la entrada
+def ask_for_polynomial():
+  polynomial = input('Ingresa el polinomio: ')
 
-  return int(input())
+  # Eliminar espacios innecesarios
+  polynomial = polynomial.replace(' ', '')
+  clear_polynomial = ''
 
-# Pide una expresión algebráica
-def ask_for_algebraic_expression():
-  return input('Ingresa la expresión algebráica: ')
+  # Insertar espacios al rededor de los operadores y paréntesis
+  for char in polynomial:
+    if char in OPERATORS or char in '()':
+      clear_polynomial += ' {} '.format(char)
+    else:
+      clear_polynomial += char
+
+  return clear_polynomial
 
 # Punto de entrada al programa
 if __name__ == "__main__":
-  while True:
-    # Pedir una elección al usuario
-    choice = print_menu()
+  # Obtener polinomio
+  polynomial = ask_for_polynomial()
+  prefix_expression = infix_to_prefix(polynomial)
 
-    if choice == 1:
-      ask_for_algebraic_expression()
-    elif choice == 2:
-      ask_for_algebraic_expression()
-    elif choice == 3:
-      ask_for_algebraic_expression()
-    elif choice == 4:
-      print('Bye... :)')
-      break
-    else:
-      print('No reconozco esa elección :(')
+  # Identificar las incógnitas y pedírselas al usuario
+  variables = ask_for_variables(identify_variables(prefix_expression))
+  print(variables)
