@@ -1,6 +1,7 @@
-from Stack import Node, Stack
-from helper import is_number, get_operator_weight
-from characters import OPERATORS
+from Stack import Stack, Node
+from helper import is_number
+from characters import OPERATORS, get_operator_weight
+
 def infix_to_postfix(algebraic_expression: str):
   result=''
   stacksito=Stack()
@@ -10,7 +11,7 @@ def infix_to_postfix(algebraic_expression: str):
     elif char=='(':
       stacksito.push('(')
     elif char==')':
-      while stacksito.is_empty() and stacksito.last() is not '(':
+      while stacksito.is_empty() and stacksito.last() != '(':
         result+=stacksito.pop()
       stacksito.pop()
     else:
@@ -20,4 +21,3 @@ def infix_to_postfix(algebraic_expression: str):
   while stacksito:
     result+=stacksito.pop()
   return result
-
